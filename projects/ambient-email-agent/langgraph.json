@@ -1,0 +1,10 @@
+{
+    "dependencies": ["."],
+    "graphs": {
+        "email_assistant": "./src/ambient_email_agent/email_assistant.py:email_assistant",
+        "email_assistant_hitl": "./src/ambient_email_agent/email_assistant_hitl.py:email_assistant_hitl",
+        "email_assistant_hitl_v2": "./src/ambient_email_agent/email_assistant_hitl_v2.py:email_assistant_hitl_v2"
+
+    },
+    "env": "./.env"
+  }
