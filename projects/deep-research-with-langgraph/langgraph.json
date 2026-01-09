@@ -1,0 +1,8 @@
+{
+    "dependencies": ["."],
+    "graphs": {
+        "email_assistant": "./src/deep_research_with_langgraph/research_agent_scope.py:scope_research"
+
+    },
+    "env": "./.env"
+  }
