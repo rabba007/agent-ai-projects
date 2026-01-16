@@ -5,13 +5,17 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "ipykernel>=7.1.0",
+    "jupyter>=1.1.1",
     "langchain>=1.2.0",
     "langchain-community>=0.4.1",
     "langchain-google-genai>=4.1.2",
     "langchain-groq>=1.1.1",
     "langchain-openai>=1.1.6",
+    "langchain-perplexity>=1.1.0",
     "langgraph>=1.0.5",
     "langgraph-cli[inmem]>=0.4.11",
+    "notebook>=7.5.2",
     "pydantic>=2.12.5",
     "python-dotenv>=1.2.1",
     "rich>=14.2.0",
@@ -23,7 +27,12 @@ package-dir = { "" = "src" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
+[project.optional-dependencies]
+notebooks = [
+  "jupyter",
+  "notebook",
+  "ipykernel"
+]
 [dependency-groups]
 dev = [
     "ipykernel>=7.1.0",

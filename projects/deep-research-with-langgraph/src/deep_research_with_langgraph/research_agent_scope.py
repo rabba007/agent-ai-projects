@@ -30,9 +30,8 @@ def get_today_str() -> str:
 # ===== CONFIGURATION =====
 
 # Initialize model
-model_gemini_flash = init_chat_model("gemini-2.5-flash", model_provider="google_genai", timeout=30, temperature=0)
-model_llama_groq = init_chat_model("llama-3.1-8b-instant", model_provider="groq", timeout=30, temperature=0)
-model = model_gemini_flash
+model_gpt_4o_mini = init_chat_model("gpt-4o-mini", model_provider="openai", temperature=0)
+model = model_gpt_4o_mini
 
 
 # ===== WORKFLOW NODES =====

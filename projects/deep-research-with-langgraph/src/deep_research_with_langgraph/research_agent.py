@@ -23,8 +23,8 @@ tools_by_name = {tool.name: tool for tool in tools}
 
 model = init_chat_model("gpt-4o-mini", model_provider="openai" ,timeout=30, temperature=0)
 model_with_tools = model.bind_tools(tools)
-summarization_model = init_chat_model("gemini-2.5-flash", model_provider="google_genai", timeout=30, temperature=0)
-compress_model = init_chat_model("gpt-4o-mini", model_provider="openai", timeout=30, temperature=0,max_tokens=32000)
+summarization_model = init_chat_model("gpt-4o-mini", model_provider="openai", timeout=30, temperature=0)
+compress_model = init_chat_model("gpt-4.1-mini", model_provider="openai", temperature=0, max_tokens=32000)
 
 # ===== AGENT NODES =====
 

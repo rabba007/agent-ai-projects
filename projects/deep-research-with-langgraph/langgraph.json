@@ -1,8 +1,10 @@
 {
-    "dependencies": ["."],
+    "dependencies": [
+        "."
+    ],
     "graphs": {
-        "research_agent_full": "./src/deep_research_with_langgraph/research_agent_full.py:agent"
-
+        "research_agent_tavily": "./src/deep_research_with_langgraph/research_with_tavily_full.py:agent",
+        "research_with_sonar": "./src/deep_research_with_langgraph/research_with_sonar_full.py:agent"
     },
     "env": "./.env"
-  }
+}

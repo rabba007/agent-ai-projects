@@ -16,7 +16,7 @@ from langgraph.graph import END, START, StateGraph
 from deep_research_with_langgraph.state_multi_agent_supervisor import ConductResearch, ResearchComplete, SupervisorState
 from deep_research_with_langgraph.utils import think_tool, get_today_str
 from deep_research_with_langgraph.prompts import lead_researcher_prompt
-from deep_research_with_langgraph.research_agent import researcher_agent
+from deep_research_with_langgraph.prompts import lead_researcher_prompt
 from langgraph.types import Command
 from typing_extensions import Literal
 
@@ -53,7 +53,7 @@ except ImportError:
 # ===== CONFIGURATION =====
 
 supervisor_tools = [ConductResearch, ResearchComplete, think_tool]
-supervisor_model = init_chat_model("gemini-2.5-flash", model_provider="google_genai", timeout=30, temperature=0)
+supervisor_model = init_chat_model("gpt-4o-mini", model_provider="openai" ,timeout=30, temperature=0)
 supervisor_model_with_tools = supervisor_model.bind_tools(supervisor_tools)
 
 # System constants
@@ -167,12 +167,25 @@ async def supervisor_tools(state: SupervisorState) -> Command[Literal["superviso
             # Handle ConductResearch calls (asynchronous)
             if conduct_research_calls:
                 # Launch parallel research agents
+                # Check research mode to decide which agent to launch
+                # Check research mode to decide which agent to launch
+                research_mode = state.get("research_mode", "tavily")
+                
+                # Dynamic import to decouple supervisor from specific researcher implementations
+                if research_mode == "sonar":
+                    from deep_research_with_langgraph.sonar_agent import sonar_researcher
+                    agent_to_call = sonar_researcher
+                else:
+                    from deep_research_with_langgraph.research_agent import researcher_agent
+                    agent_to_call = researcher_agent
+                
                 coros = [
-                    researcher_agent.ainvoke({
+                    agent_to_call.ainvoke({
                         "researcher_messages": [
                             HumanMessage(content=tool_call["args"]["research_topic"])
                         ],
-                        "research_topic": tool_call["args"]["research_topic"]
+                        "research_topic": tool_call["args"]["research_topic"],
+                        "research_brief": state.get("research_brief", "") # Pass brief for context if needed
                     }) 
                     for tool_call in conduct_research_calls
                 ]

@@ -31,6 +31,8 @@ class SupervisorState(TypedDict):
     research_iterations: int = 0
     # Raw unprocessed research notes collected from sub-agent research
     raw_notes: Annotated[list[str], operator.add] = []
+    # Mode of research: 'tavily' (default) or 'sonar'
+    research_mode: str = "tavily"
 
 @tool
 class ConductResearch(BaseModel):

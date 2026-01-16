@@ -1,4 +1,7 @@
-# 🧱 Deep Research From Scratch 
+# 🧱 Deep Research From Scratch (with Perplexity Sonar)
+
+> [!NOTE]
+> **Major Fork**: This repository is a significant extension of the original [deep_research_from_scratch](https://github.com/langchain-ai/deep_research_from_scratch) by LangChain AI. It introduces a completely new **Sonar Research Flow** powered by Perplexity's Sonar models, enabling ultra-dense information retrieval and specialized research capabilities alongside the standard Tavily-based agent.
 
 Deep research has broken out as one of the most popular agent applications. [OpenAI](https://openai.com/index/introducing-deep-research/), [Anthropic](https://www.anthropic.com/engineering/built-multi-agent-research-system), [Perplexity](https://www.perplexity.ai/hub/blog/introducing-perplexity-deep-research), and [Google](https://gemini.google/overview/deep-research/?hl=en) all have deep research products that produce comprehensive reports using [various sources](https://www.anthropic.com/news/research) of context. There are also many [open](https://huggingface.co/blog/open-deep-research) [source](https://github.com/google-gemini/gemini-fullstack-langgraph-quickstart) implementations. Langchain has built an [open deep researcher](https://github.com/langchain-ai/open_deep_research) that is simple and configurable, allowing users to bring their own models, search tools, and MCP servers. In this repo, we'll build a deep researcher from scratch! Here is a map of the major pieces that we will build:
 
@@ -46,7 +49,7 @@ TAVILY_API_KEY=your_tavily_api_key_here
 
 # Required for model usage
 OPENAI_API_KEY=your_openai_api_key_here
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
+PPLX_API_KEY=your_perplexity_api_key_here
 
 # Optional: For evaluation and tracing
 LANGSMITH_API_KEY=your_langsmith_api_key_here
@@ -66,7 +69,7 @@ jupyter notebook
 
 ## Background 
 
-Research is an open‑ended task; the best strategy to answer a user request can’t be easily known in advance. Requests can require different research strategies and varying levels of search depth. Consider this request. 
+Research is an open‑ended task; the best strategy to answer a user request can’t be easily known in advance. Requests can require different research strategies and varying levels of search depth.
 
 [Agents](https://langchain-ai.github.io/langgraph/tutorials/workflows/#agent) are well suited to research because they can flexibly apply different strategies, using intermediate results to guide their exploration. Open deep research uses an agent to conduct research as part of a three step process:
 
@@ -76,7 +79,7 @@ Research is an open‑ended task; the best strategy to answer a user request can
 
 ## 📝 Organization 
 
-This repo contains 4 tutorial notebooks that build a deep research system from scratch:
+This repo contains 5 tutorial notebooks that build a deep research system from scratch:
 
 ### 📚 Tutorial Notebooks
 
@@ -138,7 +141,7 @@ This repo contains 4 tutorial notebooks that build a deep research system from s
 
 ---
 
-#### 4. Full Multi-Agent Research System (`notebooks/4_full_agent.ipynb`)
+#### 4. Full Multi-Agent Research System (`notebooks/4_full_agent_tavily.ipynb`)
 **Purpose**: Complete end-to-end research system integrating all components
 
 **Key Concepts**:
@@ -157,6 +160,24 @@ This repo contains 4 tutorial notebooks that build a deep research system from s
 
 ---
 
+#### 5. Sonar Research Agent (`notebooks/5_test_sonar_agent.ipynb`)
+**Purpose**: Specialized research flow leveraging Perplexity Sonar models for high-density information retrieval
+
+**Key Concepts**:
+- **Specialized Model Integration**: Direct integration with Perplexity Sonar models (sonar-pro, sonar)
+- **Enhanced Compression**: Precise information density retention using strict non-summarization prompts
+- **Alternative Research Path**: Configurable routing between Tavily-based and Sonar-based research
+
+**Implementation Highlights**:
+- `SonarResearcherState` with specific fields (`compressed_research`) for Sonar-specific data handling
+- Custom agent graph reusing the supervisor architecture but with efficient single-pass or multi-pass Sonar calls
+- Robust error handling and reflection loops (`think_tool`) for high-quality output
+- Seamless integration into the main supervisor via `research_mode` configuration
+
+**What You'll Learn**: Integrating specialized LLMs as search tools, routing strategies, dense information handling
+
+---
+
 ### 🎯 Key Learning Outcomes
 
 - **Structured Output**: Using Pydantic schemas for reliable AI decision making
@@ -165,5 +186,6 @@ This repo contains 4 tutorial notebooks that build a deep research system from s
 - **Search Integration**: External APIs, content processing
 - **Workflow Design**: LangGraph patterns for complex multi-step processes
 - **State Management**: Complex state flows across subgraphs and nodes
+- **Specialized Model Usage**: leveraging domain-specific models like Perplexity Sonar for enhanced research capabilities
 
 Each notebook builds on the previous concepts, culminating in a production-ready deep research system that can handle complex, multi-faceted research queries with intelligent scoping and coordinated execution. 

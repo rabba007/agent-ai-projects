@@ -22,7 +22,7 @@ def get_today_str() -> str:
 
 # ===== CONFIGURATION =====
 
-summarization_model = init_chat_model("llama-3.1-8b-instant", model_provider="groq", timeout=30, temperature=0)
+summarization_model = init_chat_model("gpt-4o-mini", model_provider="openai", temperature=0)
 tavily_client = TavilyClient()
 
 # ===== SEARCH FUNCTIONS =====

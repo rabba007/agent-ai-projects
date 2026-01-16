@@ -6,7 +6,7 @@ the research agent scoping workflow, including researcher state management and o
 """
 
 import operator
-from typing_extensions import Optional, Annotated, List, Sequence
+from typing_extensions import Optional, Annotated, List, Sequence, Literal
 
 from langchain_core.messages import BaseMessage
 from langgraph.graph import MessagesState
@@ -39,6 +39,8 @@ class AgentState(MessagesState):
     notes: Annotated[list[str], operator.add] = []
     # Final formatted research report
     final_report: str
+    # Mode of research: 'tavily' (default) or 'sonar'
+    research_mode: Literal["tavily", "sonar"] = "tavily"
 
 
 # ===== STRUCTURED OUTPUT SCHEMAS =====
